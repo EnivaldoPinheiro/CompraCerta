@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Text;
 
 namespace ProjetoAED1
 {
@@ -9,7 +7,7 @@ namespace ProjetoAED1
         class Revendedora
         {
             protected string Motor;
-            protected double Cilindrada;
+            protected string Cilindrada;
             protected string Aceleracao;
             protected double Consumo;
             protected string Modelo;
@@ -20,7 +18,7 @@ namespace ProjetoAED1
             protected int AnoFabricacao;
 
 
-            public Revendedora(string motor, double porlitro, string velocidade, double litro,
+            public Revendedora(string motor, string porlitro, string velocidade, double litro,
                  string modelo, string fabricante, string cor, string marcha, string tracao, int ano)
             {
                 Motor = motor;
@@ -46,11 +44,11 @@ namespace ProjetoAED1
             {
                 return Motor;
             }
-            public void setCilindro(double porlitro)
+            public void setCilindro(string porlitro)
             {
                 Cilindrada = porlitro;
             }
-            public double getCinlindro()
+            public string getCinlindro()
             {
                 return Cilindrada;
             }
@@ -192,7 +190,7 @@ namespace ProjetoAED1
             protected string Cnpj;
             protected string InscEstadual;
 
-            public PessoaJuridica(string fantasia,string cnpj,string ins_estadual)
+            public PessoaJuridica(string fantasia, string cnpj, string ins_estadual)
             {
                 NomeFantasia = fantasia;
                 Cnpj = cnpj;
@@ -231,18 +229,16 @@ namespace ProjetoAED1
             protected string DadoDoVeiculo;
             protected string DataPedido;
             protected string DataEntrega;
-            protected double Valor;
-            protected double ValorFrete;
-            protected double ValorDesconto;
-            protected double ValorTotal;
+            protected string Valor;
+            protected string ValorDesconto;
+            protected string ValorTotal;
 
-            public PedidoCompra(string carro, string dtpedido, string dtentrega, double preco, double frete, double desconto, double total)
+            public PedidoCompra(string carro, string dtpedido, string dtentrega, string preco, string desconto, string total)
             {
                 DadoDoVeiculo = carro;
                 DataPedido = dtpedido;
                 DataEntrega = dtentrega;
                 Valor = preco;
-                ValorFrete = frete;
                 ValorDesconto = desconto;
                 ValorTotal = total;
             }
@@ -274,27 +270,36 @@ namespace ProjetoAED1
             {
                 return DataEntrega;
             }
-            public void setFrete(double frete)
+            public void setvalor(string preco)
             {
-                ValorFrete = frete;
+                Valor = preco;
             }
-            public double getFrete()
+            public string getvalor()
             {
-                return ValorFrete;
+                return Valor;
             }
-            public void setDesconto(double desconto)
+            public void setValorPedido(string pedido)
             {
+                Valor = pedido;
+            }
+            public string getValorPedido()
+            {
+                return Valor;
+            }
+            public void setDesconto(string desconto)
+            {
+               
                 ValorDesconto = desconto;
             }
-            public double getDesconto()
+            public string getDesconto()
             {
                 return ValorDesconto;
             }
-            public void setTotal(double total)
+            public void setTotal(string total)
             {
                 ValorTotal = total;
             }
-            public double getTotal()
+            public string getTotal()
             {
                 return ValorTotal;
             }
@@ -311,6 +316,8 @@ namespace ProjetoAED1
                 ItemOpcional = opcionais;
                 GarantiaCompra = garantia;
             }
+            public Venda() { }
+
             public void setPlaca(string placa)
             {
                 Emplacamento = placa;
@@ -337,14 +344,14 @@ namespace ProjetoAED1
                 return GarantiaCompra;
             }
         }
-        class PedidoEntrega
+        class PedidoEntrega : PedidoCompra
         {
             protected string Transportadora;
             protected string EndTransportadora;
             protected string Motorista;
             protected string Mercadoria;
 
-            public PedidoEntrega(string transporte,string endtransporte,string condutor,string mercadoria)
+            public PedidoEntrega(string transporte, string endtransporte, string condutor, string mercadoria)
             {
                 Transportadora = transporte;
                 EndTransportadora = endtransporte;
@@ -352,6 +359,7 @@ namespace ProjetoAED1
                 Mercadoria = mercadoria;
             }
             public PedidoEntrega() { }
+
             public void setNomeTransportadora(string transportadora)
             {
                 Transportadora = transportadora;
@@ -387,10 +395,38 @@ namespace ProjetoAED1
         }
         static void Main(string[] args)
         {
-            int motor;
-            
+            Console.WriteLine(">>>>>>>>>>>>>>>>>>Pedido de Compra<<<<<<<<<<<<<<<<<<<<");
             PessoaFisica pf = new PessoaFisica();
             PedidoCompra pc = new PedidoCompra();
+            Venda vendido = new Venda();
+            pf.setdataPedido("17/05/20");
+            pf.setNomeFisico("Enivaldo Pinheiro");
+            pf.setcpf("12345678900");
+            pf.setRgeral("12345-ES");
+            pf.setEnd("Rua IF nº27  bairro csharp  cidade UCL  Estado Terra do Nunca");
+            pf.setTel("27 995170817");
+            pf.setTipoModelo("Espero");
+            pf.setCorRgb("vermelho");
+            pf.setFabricante("Daewoo");
+            pf.setTipoMotor("Gasolina 8 valvulas");
+            pf.setAno(1995);
+            pf.setCilindro("2.0");
+            pf.setcambio("Automatico");
+            pf.setvalor("10.000");
+            pf.setDesconto("1.000");
+            pf.setTotal("9.000");
+                 
+
+            Console.WriteLine("\n Data do Pedido: {0} \n Nome: {1} \n Cpf: {2} \n RG: {3} \n Endereço:{4} \n Telefone: {5}",pf.getdataPedido(), pf.getNomeFisico(), pf.getcpf(), pf.getRgeral(), pf.getEnd(), pf.getTel());
+            Console.WriteLine("\n Modelo do Carro: {0} \n Cor do Carro: {1} \n Fabriante: {2} \n Tipo Motor: {3} \n Ano Fabricação: {4} \n Cilindrada Carro: {5} \n Tipo de Cambio: {6}",
+                pf.getTipoModelo(), pf.getCorRgb(), pf.getFabricante(), pf.getTipoMotor(), pf.getAno(), pf.getCinlindro(), pf.getcambio());
+            Console.WriteLine("\n Valor do Carro : {0} \n Desconto de 10% para compras Avista: {1} \n Valor total a pagar: {2}",pf.getvalor(),pf.getDesconto(),pf.getTotal());
+                      
+           
+            
+            Console.WriteLine(">>>>>>>>>>>>>>>>>>Venda<<<<<<<<<<<<<<<<<<<<");
+           
+            pc.setdataEntrega("20/05/20");
             pf.setNomeFisico("Enivaldo Pinheiro");
             pf.setcpf("12345678900");
             pf.setRgeral("12345-ES");
@@ -401,25 +437,21 @@ namespace ProjetoAED1
             pc.setFabricante("Daewoo");
             pc.setTipoMotor("Gasolina 8 valvulas");
             pc.setAno(1995);
-            pc.setCilindro(2.0);
+            pc.setCilindro("2.0");
             pc.setcambio("Automatico");
-           
-            
-            Console.WriteLine("\n Nome: {0} \n Cpf: {1} \n RG: {2} \n Endereço:{3} \n Telefone: {4}", pf.getNomeFisico(),pf.getcpf(),pf.getRgeral(),pf.getEnd(),pf.getTel());
+            pc.setvalor("10.000");
+            pc.setDesconto("1.000");
+            pc.setTotal("9.000");
+            vendido.setPlaca("ESP 123");
+            vendido.setGarantia("3 meses");
+            vendido.setvalor("10.000");
+            vendido.setDesconto("1.000");
+            vendido.setTotal("9.000");
+
+            Console.WriteLine("\n Data da Venda: {0} \n Nome: {1} \n Cpf: {2} \n RG: {3} \n Endereço:{4} \n Telefone: {5}",pc.getdataEntrega(),pf.getNomeFisico(), pf.getcpf(), pf.getRgeral(), pf.getEnd(), pf.getTel());
             Console.WriteLine("\n Modelo do Carro: {0} \n Cor do Carro: {1} \n Fabriante: {2} \n Tipo Motor: {3} \n Ano Fabricação: {4} \n Cilindrada Carro: {5} \n Tipo de Cambio: {6}",
-                pc.getTipoModelo(), pc.getCorRgb(),pc.getFabricante(),pc.getTipoMotor(),pc.getAno(),pc.getCinlindro(),pc.getcambio()) ;
-
-
-            //Revendedora carro = new Revendedora();
-            // Console.WriteLine("Informe o modelo do carro? ");
-            // Busca = Console.ReadLine();
-            //carro.TipoModelo(Busca);
-
-
-            //Console.WriteLine("Informe o modelo do carro? ");
-            // StreamWriter sr = new StreamWriter(@"C:\Users\familia Pinheiro\Documents\CompraCerta\Arq texto\Minha_tabela.txt", true);
-            // sr.GetType(pf.getNomeFisico);
-            // sr.Close();
+                pc.getTipoModelo(), pc.getCorRgb(), pc.getFabricante(), pc.getTipoMotor(), pc.getAno(), pc.getCinlindro(), pc.getcambio());
+            Console.WriteLine("\n Numero da Placa: {0} \n Garantia de Compra: {1} \n Valor do Carro : {2} \n Desconto de 10% para compras Avista: {3} \n Valor total a pagar: {4}", vendido.getPlaca(),vendido.getGarantia(),vendido.getvalor(), vendido.getDesconto(), vendido.getTotal());
 
 
 
@@ -427,45 +459,6 @@ namespace ProjetoAED1
 
 
 
-            //Console.WriteLine("Informe a marca do carro? ");
-            //Busca = Console.ReadLine();
-            //carro.Fabricante(Busca);
-            //Console.WriteLine();
-
-            //Console.WriteLine("Informe a cor do carro? ");
-            //Busca = Console.ReadLine();
-            //carro.CorRgb(Busca);
-            //Console.WriteLine();
-
-            //Console.WriteLine("Informe o tipo do motor? ");
-            //Busca = Console.ReadLine();
-            //carro.TipoMotor(Busca);
-            //Console.WriteLine();
-
-            //Console.WriteLine("Informe o ano do carro? " + carro.Ano());
-            //Busca = Convert.ToString(Console.ReadLine());
-            //Console.WriteLine();
-
-            //Console.WriteLine("Informe a media de consumo ? " + carro.Litro_Km());
-            //Busca = Convert.ToString(Console.ReadLine());
-            //Console.WriteLine();
-
-            //Console.WriteLine("Informe tipo de cambio? " + carro.cambio());
-            //Busca = Console.ReadLine();
-            //Console.WriteLine();
-
-            //Console.WriteLine("Informe tipo de tração? " + carro.tracao());
-            //text = Console.ReadLine();
-            //Console.WriteLine();
-
-
-
-
-
-            //StreamWriter tab = new StreamWriter(@"D:/CompraCerta/Minha_tabela.txt");
-            //tab.WriteLine("Enivaldo Pinheiro", pf.NomeFisico());
-
-            //FileInfo aFile = new FileInfo("D:/CompraCerta/Minha_tabela.txt");
         }
     }
 }
